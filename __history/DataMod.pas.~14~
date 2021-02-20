@@ -1,0 +1,73 @@
+unit DataMod;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, MemTableDataEh,
+  MemTableEh;
+
+type
+  TDM = class(TDataModule)
+    DS10: TDataSource;
+    ADOConnection1: TADOConnection;
+    ADOQ10: TADOQuery;
+    ADOQ10NAME_SHORT: TWideStringField;
+    ADOQ10Kateg: TSmallintField;
+    ADOQ10kolvo: TIntegerField;
+    ADOQ10Year: TIntegerField;
+    ADOQTo: TADOQuery;
+    DSTO: TDataSource;
+    ADOQFrom: TADOQuery;
+    DSFrom: TDataSource;
+    ADOQIn: TADOQuery;
+    DSIn: TDataSource;
+    ADOQOut: TADOQuery;
+    DSOut: TDataSource;
+    ADOQInvent: TADOQuery;
+    DSInvent: TDataSource;
+    ADOQ10opdate: TDateTimeField;
+    ADOQInventopdate: TDateTimeField;
+    ADOQInventSht: TIntegerField;
+    ADOQTokolvo: TIntegerField;
+    ADOQFromkolvo: TIntegerField;
+    ADOQInkolvo: TIntegerField;
+    ADOQOutkolvo: TIntegerField;
+    MTE_Onko: TMemTableEh;
+    DS_Onko: TDataSource;
+    MTE_Onkonumber: TSmallintField;
+    MTE_OnkoYear: TSmallintField;
+    MTE_OnkoOrganization: TStringField;
+    MTE_OnkoKategory: TSmallintField;
+    MTE_OnkoInventDate: TDateField;
+    MTE_OnkoInvent: TSmallintField;
+    MTE_OnkoTo: TSmallintField;
+    MTE_OnkoFrom: TSmallintField;
+    MTE_OnkoIn: TSmallintField;
+    MTE_OnkoOut: TSmallintField;
+    MTE_OnkoBalance: TSmallintField;
+    MTE_OnkonextInvent: TSmallintField;
+    MTE_OnkonextInventDate: TDateField;
+    ADOQuery1: TADOQuery;
+    MTE_OnkoOrganization1: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDM.DataModuleCreate(Sender: TObject);
+begin
+//  MTE_Onko.So
+end;
+
+end.

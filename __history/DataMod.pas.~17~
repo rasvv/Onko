@@ -1,0 +1,105 @@
+unit DataMod;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, MemTableDataEh,
+  MemTableEh;
+
+type
+  TDM = class(TDataModule)
+    ADOConnection1: TADOConnection;
+    ADOQ10: TADOQuery;
+    ADOQ10NAME_SHORT: TWideStringField;
+    ADOQ10Kateg: TSmallintField;
+    ADOQ10kolvo: TIntegerField;
+    ADOQ10Year: TIntegerField;
+    ADOQTo: TADOQuery;
+    ADOQFrom: TADOQuery;
+    ADOQIn: TADOQuery;
+    ADOQOut: TADOQuery;
+    ADOQInvent: TADOQuery;
+    ADOQ10opdate: TDateTimeField;
+    ADOQInventopdate: TDateTimeField;
+    ADOQInventSht: TIntegerField;
+    ADOQTokolvo: TIntegerField;
+    ADOQFromkolvo: TIntegerField;
+    ADOQInkolvo: TIntegerField;
+    ADOQOutkolvo: TIntegerField;
+    MTE_Onko: TMemTableEh;
+    DS_Onko: TDataSource;
+    MTE_Onkonumber: TSmallintField;
+    MTE_OnkoYear: TSmallintField;
+    MTE_OnkoOrganization: TStringField;
+    MTE_OnkoKategory: TSmallintField;
+    MTE_OnkoInventDate: TDateField;
+    MTE_OnkoInvent: TSmallintField;
+    MTE_OnkoTo: TSmallintField;
+    MTE_OnkoFrom: TSmallintField;
+    MTE_OnkoIn: TSmallintField;
+    MTE_OnkoOut: TSmallintField;
+    MTE_OnkoBalance: TSmallintField;
+    MTE_OnkonextInvent: TSmallintField;
+    MTE_OnkonextInventDate: TDateField;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    ADOQIzgot: TADOQuery;
+    IntegerField1: TIntegerField;
+    WideStringField1: TWideStringField;
+    DateTimeField1: TDateTimeField;
+    SmallintField1: TSmallintField;
+    IntegerField2: TIntegerField;
+    ADOQuery3: TADOQuery;
+    IntegerField3: TIntegerField;
+    DataSource2: TDataSource;
+    ADOQuery4: TADOQuery;
+    IntegerField4: TIntegerField;
+    DataSource3: TDataSource;
+    ADOQuery5: TADOQuery;
+    IntegerField5: TIntegerField;
+    DataSource4: TDataSource;
+    ADOQuery6: TADOQuery;
+    IntegerField6: TIntegerField;
+    DataSource5: TDataSource;
+    ADOQuery7: TADOQuery;
+    DateTimeField2: TDateTimeField;
+    IntegerField7: TIntegerField;
+    DataSource6: TDataSource;
+    MemTableEh1: TMemTableEh;
+    SmallintField2: TSmallintField;
+    SmallintField3: TSmallintField;
+    StringField1: TStringField;
+    SmallintField4: TSmallintField;
+    DateField1: TDateField;
+    SmallintField5: TSmallintField;
+    SmallintField6: TSmallintField;
+    SmallintField7: TSmallintField;
+    SmallintField8: TSmallintField;
+    SmallintField9: TSmallintField;
+    SmallintField10: TSmallintField;
+    SmallintField11: TSmallintField;
+    DateField2: TDateField;
+    StringField2: TStringField;
+    DataSource7: TDataSource;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDM.DataModuleCreate(Sender: TObject);
+begin
+//  MTE_Onko.So
+end;
+
+end.

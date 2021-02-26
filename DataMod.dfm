@@ -869,7 +869,7 @@ object DM: TDM
     end
   end
   object MTE_ZRI: TMemTableEh
-    AutoCalcFields = False
+    AggregatesActive = True
     CachedUpdates = True
     FieldDefs = <
       item
@@ -1124,6 +1124,62 @@ object DM: TDM
         Name = 'Org16'
         DataType = ftString
         Size = 20
+      end
+      item
+        Name = 'OpDate17'
+        DataType = ftDate
+      end
+      item
+        Name = 'Oper17'
+        DataType = ftSmallint
+        Precision = 15
+      end
+      item
+        Name = 'Org17'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'OpDate18'
+        DataType = ftDate
+      end
+      item
+        Name = 'Oper18'
+        DataType = ftSmallint
+        Precision = 15
+      end
+      item
+        Name = 'Org18'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'OpDate19'
+        DataType = ftDate
+      end
+      item
+        Name = 'Oper19'
+        DataType = ftSmallint
+        Precision = 15
+      end
+      item
+        Name = 'Org19'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'OpDate20'
+        DataType = ftDate
+      end
+      item
+        Name = 'Oper20'
+        DataType = ftSmallint
+        Precision = 15
+      end
+      item
+        Name = 'Org20'
+        DataType = ftString
+        Size = 20
       end>
     Filter = '1=1'
     Filtered = True
@@ -1293,6 +1349,42 @@ object DM: TDM
     end
     object MTE_ZRIOrg16: TStringField
       FieldName = 'Org16'
+    end
+    object MTE_ZRIOpDate17: TDateField
+      FieldName = 'OpDate17'
+    end
+    object MTE_ZRIOper17: TSmallintField
+      FieldName = 'Oper17'
+    end
+    object MTE_ZRIOrg17: TStringField
+      FieldName = 'Org17'
+    end
+    object MTE_ZRIOpDate18: TDateField
+      FieldName = 'OpDate18'
+    end
+    object MTE_ZRIOper18: TSmallintField
+      FieldName = 'Oper18'
+    end
+    object MTE_ZRIOrg18: TStringField
+      FieldName = 'Org18'
+    end
+    object MTE_ZRIOpDate19: TDateField
+      FieldName = 'OpDate19'
+    end
+    object MTE_ZRIOper19: TSmallintField
+      FieldName = 'Oper19'
+    end
+    object MTE_ZRIOrg19: TStringField
+      FieldName = 'Org19'
+    end
+    object MTE_ZRIOpDate20: TDateField
+      FieldName = 'OpDate20'
+    end
+    object MTE_ZRIOper20: TSmallintField
+      FieldName = 'Oper20'
+    end
+    object MTE_ZRIOrg20: TStringField
+      FieldName = 'Org20'
     end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
@@ -1614,6 +1706,78 @@ object DM: TDM
         end
         object Org16: TMTStringDataFieldEh
           FieldName = 'Org16'
+          StringDataType = fdtStringEh
+          DisplayWidth = 20
+        end
+        object OpDate17: TMTDateTimeDataFieldEh
+          FieldName = 'OpDate17'
+          DateTimeDataType = fdtDateEh
+          DisplayWidth = 20
+        end
+        object Oper17: TMTNumericDataFieldEh
+          FieldName = 'Oper17'
+          NumericDataType = fdtSmallintEh
+          AutoIncrement = False
+          DisplayWidth = 20
+          currency = False
+          Precision = 15
+        end
+        object Org17: TMTStringDataFieldEh
+          FieldName = 'Org17'
+          StringDataType = fdtStringEh
+          DisplayWidth = 20
+        end
+        object OpDate18: TMTDateTimeDataFieldEh
+          FieldName = 'OpDate18'
+          DateTimeDataType = fdtDateEh
+          DisplayWidth = 20
+        end
+        object Oper18: TMTNumericDataFieldEh
+          FieldName = 'Oper18'
+          NumericDataType = fdtSmallintEh
+          AutoIncrement = False
+          DisplayWidth = 20
+          currency = False
+          Precision = 15
+        end
+        object Org18: TMTStringDataFieldEh
+          FieldName = 'Org18'
+          StringDataType = fdtStringEh
+          DisplayWidth = 20
+        end
+        object OpDate19: TMTDateTimeDataFieldEh
+          FieldName = 'OpDate19'
+          DateTimeDataType = fdtDateEh
+          DisplayWidth = 20
+        end
+        object Oper19: TMTNumericDataFieldEh
+          FieldName = 'Oper19'
+          NumericDataType = fdtSmallintEh
+          AutoIncrement = False
+          DisplayWidth = 20
+          currency = False
+          Precision = 15
+        end
+        object Org19: TMTStringDataFieldEh
+          FieldName = 'Org19'
+          StringDataType = fdtStringEh
+          DisplayWidth = 20
+        end
+        object OpDate20: TMTDateTimeDataFieldEh
+          FieldName = 'OpDate20'
+          DateTimeDataType = fdtDateEh
+          DisplayWidth = 20
+        end
+        object Oper20: TMTNumericDataFieldEh
+          FieldName = 'Oper20'
+          NumericDataType = fdtSmallintEh
+          AutoIncrement = False
+          DisplayWidth = 20
+          currency = False
+          Precision = 15
+        end
+        object Org20: TMTStringDataFieldEh
+          FieldName = 'Org20'
           StringDataType = fdtStringEh
           DisplayWidth = 20
         end

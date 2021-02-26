@@ -202,15 +202,16 @@ object Form1: TForm1
         Align = alBottom
         TabOrder = 0
         object Button2: TButton
-          Left = 921
+          Left = 1273
           Top = 1
-          Width = 688
+          Width = 336
           Height = 50
           Align = alClient
           Caption = #1055#1086#1083#1091#1095#1080#1090#1100' '#1076#1072#1085#1085#1099#1077
           TabOrder = 0
           OnClick = Button2Click
-          ExplicitWidth = 384
+          ExplicitLeft = 992
+          ExplicitWidth = 617
         end
         object ProgressBar2: TProgressBar
           Left = 1
@@ -223,7 +224,7 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 1
           Top = 1
-          Width = 920
+          Width = 1272
           Height = 50
           Align = alLeft
           TabOrder = 2
@@ -233,6 +234,32 @@ object Form1: TForm1
             Width = 79
             Height = 23
             Caption = #1047#1072#1087#1080#1089#1077#1081':'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label3: TLabel
+            Left = 904
+            Top = 10
+            Width = 61
+            Height = 23
+            Caption = #1042#1088#1077#1084#1103':'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -19
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label4: TLabel
+            Left = 1072
+            Top = 10
+            Width = 95
+            Height = 23
+            Caption = #1054#1087#1077#1088#1072#1094#1080#1081':'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -19
@@ -254,8 +281,7 @@ object Form1: TForm1
             ParentFont = False
             TabOrder = 0
             Text = #1043#1086#1076' '#1080#1079#1075#1086#1090#1086#1074#1083#1077#1085#1080#1103' '#1080#1089#1090#1086#1095#1085#1080#1082#1072
-            OnMouseEnter = CB_IzgotYearMouseEnter
-            OnMouseLeave = CB_IzgotYearMouseLeave
+            OnEnter = CB_IzgotYearEnter
             Items.Strings = (
               '2014'
               '2015'
@@ -281,8 +307,6 @@ object Form1: TForm1
             TabOrder = 1
             Text = #1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103'-'#1080#1079#1075#1086#1090#1086#1074#1080#1090#1077#1083#1100
             OnEnter = CB_IzgotEnter
-            OnMouseEnter = CB_IzgotMouseEnter
-            OnMouseLeave = CB_IzgotMouseLeave
             Items.Strings = (
               '20553876'
               '07622740'
@@ -303,8 +327,7 @@ object Form1: TForm1
             ParentFont = False
             TabOrder = 2
             Text = #1050#1072#1090#1077#1075#1086#1088#1080#1103' '#1080#1089#1090#1086#1095#1085#1080#1082#1072
-            OnMouseEnter = CB_KategMouseEnter
-            OnMouseLeave = CB_KategMouseLeave
+            OnEnter = CB_KategEnter
             Items.Strings = (
               '1'
               '2'
@@ -318,9 +341,6 @@ object Form1: TForm1
           Height = 50
           Align = alRight
           TabOrder = 3
-          ExplicitLeft = 1432
-          ExplicitTop = 24
-          ExplicitHeight = 41
           object CheckBox1: TCheckBox
             Left = 16
             Top = 16
@@ -344,6 +364,7 @@ object Form1: TForm1
         DataSource = DM.DS_ZRI
         DynProps = <>
         IndicatorOptions = [gioShowRowIndicatorEh, gioShowRecNoEh]
+        IndicatorParams.Color = clRed
         IndicatorTitle.ShowDropDownSign = True
         IndicatorTitle.TitleButton = True
         OddRowColor = cl3DLight
@@ -842,6 +863,108 @@ object Form1: TForm1
             FieldName = 'Org16'
             Footers = <>
             Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'16|'#1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'OpDate17'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'17|'#1044#1072#1090#1072
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Oper17'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'17|'#1054#1087#1077#1088#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Org17'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'17|'#1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'OpDate18'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'18|'#1044#1072#1090#1072
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Oper18'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'18|'#1054#1087#1077#1088#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Org18'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'18|'#1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'OpDate19'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'19|'#1044#1072#1090#1072
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Oper19'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'19|'#1054#1087#1077#1088#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            Color = clInactiveCaption
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Org19'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'19|'#1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'OpDate20'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'20|'#1044#1072#1090#1072
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Oper20'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'20|'#1054#1087#1077#1088#1072#1094#1080#1103
+          end
+          item
+            CellButtons = <>
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Org20'
+            Footers = <>
+            Title.Caption = #1054#1087#1077#1088#1072#1094#1080#1103'20|'#1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end

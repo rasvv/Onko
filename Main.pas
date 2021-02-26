@@ -30,6 +30,8 @@ type
     Label1: TLabel;
     Panel4: TPanel;
     CheckBox1: TCheckBox;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure DBGridEh1SortMarkingChanged(Sender: TObject);
     procedure DBGridEh1GetCellParams(Sender: TObject; Column: TColumnEh;
@@ -40,20 +42,17 @@ type
     procedure DBGridEh2GetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
     procedure CB_IzgotEnter(Sender: TObject);
-    procedure CB_IzgotMouseEnter(Sender: TObject);
-    procedure CB_IzgotYearMouseEnter(Sender: TObject);
-    procedure CB_KategMouseEnter(Sender: TObject);
     procedure DBGridEh2TitleBtnClick(Sender: TObject; ACol: Integer;
       Column: TColumnEh);
     procedure DBGridEh2SortMarkingChanged(Sender: TObject);
-    procedure CB_IzgotMouseLeave(Sender: TObject);
-    procedure CB_IzgotYearMouseLeave(Sender: TObject);
-    procedure CB_KategMouseLeave(Sender: TObject);
     procedure OrgColumnsVisible(Visible: Boolean);
     procedure CheckBox1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure CB_IzgotYearEnter(Sender: TObject);
+    procedure CB_KategEnter(Sender: TObject);
   private
   function FillCell(var Background: TColor; Col: String): TColor;
+    procedure CheckColumn(ColNom: Integer; ColTitle: String; ColField: String);
     { Private declarations }
   public
     { Public declarations }
@@ -155,11 +154,19 @@ begin
 end;
 
 
+
+
 procedure TForm1.Button2Click(Sender: TObject);
 var
-j, k : integer;
+j, k, timeLost : integer;
+TimeBegin, TimeEnd: TTime;
+vvv : Boolean;
 
+ColEh: TColumnEh;
 begin
+  TimeBegin := now;
+  MaxPos := 0;
+  vvv := DM.MTE_ZRI.IsSequenced;
   for k := 0 to DBGridEh2.Columns.Count-1 do
   DBGridEh2.Columns[k].Visible := true;
   CheckBox1.Checked := True;
@@ -197,6 +204,15 @@ begin
   for I := 1 to DM.ADOZRIQIzgot.RecordCount do
 //  for I := 1 to 15 do
   Begin
+      if DM.ADOZRIQOper.Active then DM.ADOZRIQOper.Close;
+    DM.ADOZRIQOper.Parameters.ParamByName('Typ').Value := DM.ADOZRIQIzgotTyp.Value;
+    DM.ADOZRIQOper.Parameters.ParamByName('IzgotDate').Value := DM.ADOZRIQIzgotIzgot_Date.Value;
+    DM.ADOZRIQOper.Parameters.ParamByName('Kategory').Value := DM.ADOZRIQIzgotKateg.Value;
+    DM.ADOZRIQOper.Parameters.ParamByName('numb').Value := DM.ADOZRIQIzgotNumb.Value;
+    DM.ADOZRIQOper.Parameters.ParamByName('pasport').Value := DM.ADOZRIQIzgotPaspN.Value;
+    DM.ADOZRIQOper.Open;
+    DM.ADOZRIQOper.First;
+
     DM.MTE_ZRI.Insert;
     DM.MTE_ZRIType.Value := DM.ADOZRIQIzgotTyp.Value;
     DM.MTE_ZRIPassport.Value := DM.ADOZRIQIzgotPaspN.Value;
@@ -205,14 +221,19 @@ begin
     DM.MTE_ZRIIzgotDate.Value := StrToDate(DM.ADOZRIQIzgotIzgot_Date.Value);
     DM.MTE_ZRIIzgot.Value := DM.ADOZRIQIzgotIzgotOKPO.Value;
 
-    if DM.ADOZRIQOper.Active then DM.ADOZRIQOper.Close;
-    DM.ADOZRIQOper.Parameters.ParamByName('Typ').Value := DM.ADOZRIQIzgotTyp.Value;
-    DM.ADOZRIQOper.Parameters.ParamByName('IzgotDate').Value := DM.ADOZRIQIzgotIzgot_Date.Value;
-    DM.ADOZRIQOper.Parameters.ParamByName('Kategory').Value := DM.ADOZRIQIzgotKateg.Value;
-    DM.ADOZRIQOper.Parameters.ParamByName('numb').Value := DM.ADOZRIQIzgotNumb.Value;
-    DM.ADOZRIQOper.Parameters.ParamByName('pasport').Value := DM.ADOZRIQIzgotPaspN.Value;
-    DM.ADOZRIQOper.Open;
-    DM.ADOZRIQOper.First;
+
+
+//    if DM.ADOZRIQOper.RecordCount > 16 then
+//
+//    Begin
+//      DM.MTE_Add_Columns(DM.ADOZRIQOper.RecordCount);
+//      for k := 17 to DM.ADOZRIQOper.RecordCount do
+//      Begin
+//        CheckColumn(I, '|Дата', 'OpDate');
+//        CheckColumn(I, '|Операция', 'Oper');
+//        CheckColumn(I, '|Организация', 'Org');
+//      End;
+//    End;
 
     for j := 0 to DM.ADOZRIQOper.RecordCount -1 do
     Begin
@@ -228,10 +249,15 @@ begin
     DM.MTE_ZRI.Post;
     DM.ADOZRIQIzgot.Next;
     ProgressBar2.Position := ProgressBar2.Position+1;
-
-    for k := MaxPos*3+9 to DBGridEh2.Columns.Count-1 do
-    DBGridEh2.Columns[k].Visible := false;
+    Form1.Repaint;
   End;
+
+  for k := MaxPos*3+6 to DBGridEh2.Columns.Count-1 do
+  DBGridEh2.Columns[k].Visible := false;
+
+  TimeEnd := now;
+  timeLost := SecondsBetween(TimeBegin, TimeEnd);
+  Label3.Caption := 'Время: ' + IntToStr(timeLost) + ' c.';
 
 end;
 
@@ -240,34 +266,14 @@ begin
   CB_Izgot.DroppedDown := true;
 end;
 
-procedure TForm1.CB_IzgotMouseEnter(Sender: TObject);
-begin
-  CB_Izgot.DroppedDown := true;
-end;
-
-procedure TForm1.CB_IzgotMouseLeave(Sender: TObject);
-begin
-//  CB_Izgot.DroppedDown := False;
-end;
-
-procedure TForm1.CB_IzgotYearMouseEnter(Sender: TObject);
+procedure TForm1.CB_IzgotYearEnter(Sender: TObject);
 begin
   CB_IzgotYear.DroppedDown := true;
 end;
 
-procedure TForm1.CB_IzgotYearMouseLeave(Sender: TObject);
-begin
-//  CB_IzgotYear.DroppedDown := false;
-end;
-
-procedure TForm1.CB_KategMouseEnter(Sender: TObject);
+procedure TForm1.CB_KategEnter(Sender: TObject);
 begin
   CB_Kateg.DroppedDown := true;
-end;
-
-procedure TForm1.CB_KategMouseLeave(Sender: TObject);
-begin
-//  CB_Kateg.DroppedDown := false;
 end;
 
 procedure TForm1.CheckBox1Click(Sender: TObject);
@@ -351,6 +357,17 @@ begin
   result := Background;
 end;
 
+procedure TForm1.CheckColumn(ColNom: Integer; ColTitle: String; ColField: String);
+var
+  ColEh: TColumnEh;
+begin
+  ColEh := DBGridEh2.Columns.Add;
+  ColEh.Title.Caption := 'Операция' + IntToStr(ColNom) + ColTitle;
+  ColEh.FieldName := ColField + IntToStr(ColNom);
+  if (ColNom mod 2) = 1 then
+    ColEh.Color := clGradientInactiveCaption;
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   MaxPos := 0;
@@ -363,14 +380,19 @@ pos, k, j: Integer;
 begin
   if DM.ADOZRIQOper.Active then
 
-
-  for k := 1 to 10 do
+  for k := 1 to 20 do
     Begin
       if DM.MTE_ZRI.FieldByName('Oper' + IntToStr(k)).Value = null then Break;
       pos := k;
     End;
 
-    if MaxPos < pos then MaxPos := pos;
+    if MaxPos < pos then
+    Begin
+      MaxPos := pos;
+      Label4.Caption := 'Операций: ' + IntToStr(MaxPos);
+//      Form1.Repaint;
+    End;
+
 
 
 //  pos := DM.ADOZRIQOper.RecordCount;
@@ -389,40 +411,30 @@ begin
     End;
 
     10: Begin
-//      if (DM.MTE_ZRI.FieldByName('Oper3').Value = null) and
-//      DM.MTE_ZRI.FieldByName('Oper2').Value <> null then
       if pos = 2 then
       Begin
         Background := FillCell(Background, '2');
       End;
     End;
     13: Begin
-//      if (DM.MTE_ZRI.FieldByName('Oper4').Value = null) and
-//      DM.MTE_ZRI.FieldByName('Oper3').Value <> null then
       if pos = 3 then
       Begin
         Background := FillCell(Background, '3');
       End;
     End;
     16: Begin
-//      if (DM.MTE_ZRI.FieldByName('Oper5').Value = null) and
-//      DM.MTE_ZRI.FieldByName('Oper4').Value <> null then
       if pos = 4 then
       Begin
         Background := FillCell(Background, '4');
       End;
     End;
     19: Begin
-//      if (DM.MTE_ZRI.FieldByName('Oper6').Value = null) and
-//      DM.MTE_ZRI.FieldByName('Oper5').Value <> null then
       if pos = 5 then
       Begin
         Background := FillCell(Background, '5');
       End;
     End;
     22: Begin
-//      if (DM.MTE_ZRI.FieldByName('Oper7').Value = null) and
-//      DM.MTE_ZRI.FieldByName('Oper6').Value <> null then
       if pos = 6 then
       Begin
         Background := FillCell(Background, '6');
@@ -459,9 +471,57 @@ begin
       End;
     End;
     40: Begin
-      if DM.ADOZRIQOper.RecordCount = 12 then
+      if pos = 12 then
       Begin
         Background := FillCell(Background, '12');
+      End;
+    End;
+    43: Begin
+      if pos = 13 then
+      Begin
+        Background := FillCell(Background, '13');
+      End;
+    End;
+    46: Begin
+      if pos = 14 then
+      Begin
+        Background := FillCell(Background, '14');
+      End;
+    End;
+    49: Begin
+      if pos = 15 then
+      Begin
+        Background := FillCell(Background, '15');
+      End;
+    End;
+    52: Begin
+      if pos = 16 then
+      Begin
+        Background := FillCell(Background, '16');
+      End;
+    End;
+    55: Begin
+      if pos = 17 then
+      Begin
+        Background := FillCell(Background, '17');
+      End;
+    End;
+    58: Begin
+      if pos = 18 then
+      Begin
+        Background := FillCell(Background, '18');
+      End;
+    End;
+    59: Begin
+      if pos = 19 then
+      Begin
+        Background := FillCell(Background, '19');
+      End;
+    End;
+    62: Begin
+      if DM.ADOZRIQOper.RecordCount = 20 then
+      Begin
+        Background := FillCell(Background, '20');
       End;
     End;
   end;

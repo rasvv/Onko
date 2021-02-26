@@ -113,8 +113,22 @@ type
     MTE_ZRIOpDate16: TDateField;
     MTE_ZRIOper16: TSmallintField;
     MTE_ZRIOrg16: TStringField;
+    MTE_ZRIOpDate17: TDateField;
+    MTE_ZRIOper17: TSmallintField;
+    MTE_ZRIOrg17: TStringField;
+    MTE_ZRIOpDate18: TDateField;
+    MTE_ZRIOper18: TSmallintField;
+    MTE_ZRIOrg18: TStringField;
+    MTE_ZRIOpDate19: TDateField;
+    MTE_ZRIOper19: TSmallintField;
+    MTE_ZRIOrg19: TStringField;
+    MTE_ZRIOpDate20: TDateField;
+    MTE_ZRIOper20: TSmallintField;
+    MTE_ZRIOrg20: TStringField;
     procedure DataModuleCreate(Sender: TObject);
+    procedure MTE_Add_Columns(ColumnsCount: Integer);
   private
+    procedure AddMemField(I: Integer; FldName: String; FldType: TFieldType);
     { Private declarations }
   public
     { Public declarations }
@@ -133,9 +147,58 @@ procedure TDM.DataModuleCreate(Sender: TObject);
 begin
   try
   ADOConnection1.Connected := true;
+
   except
-    ShowMessage('Что-то ошло не так!');
+    ShowMessage('Что-то пошло не так!');
   end;
+end;
+
+
+procedure TDM.MTE_Add_Columns(ColumnsCount: Integer);
+var
+I, j: Integer;
+F: TField;
+fldDef: TFieldDef;
+begin
+
+  if MTE_ZRI.Active then MTE_ZRI.Close;
+
+  for I := 17 to ColumnsCount do
+  Begin
+    AddMemField(I, 'OpDate', ftDate);
+
+  End;
+
+  MTE_ZRI.Open;
+end;
+
+procedure TDM.AddMemField(I: Integer; FldName: String; FldType: TFieldType);
+var
+  fldDef: TFieldDef;
+  fld: TField;
+  ff, fff: Integer;
+begin
+  ff := MTE_ZRI.FieldDefList.Count;
+  fff := MTE_ZRI.Fields.Count;
+  fldDef := MTE_ZRI.FieldDefs.AddFieldDef;
+  fldDef.Name := FldName + IntToStr(I);
+  fldDef.DataType := FldType;
+//  if FldType = ftString then fldDef.Size := 20;
+
+  fld := fldDef.CreateField(MTE_ZRI);
+  fld.FieldName := FldName + IntToStr(I);
+  fld.Name := FldName + IntToStr(I);
+  if FldType = ftString then fld.Size := 20;
+  fld.DataSet := MTE_ZRI;
+
+  ff := MTE_ZRI.FieldDefList.Count;
+  fff := MTE_ZRI.Fields.Count;
+
+
+//  fld.DataType := FldType;
+
+
+
 end;
 
 end.

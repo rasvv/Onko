@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #1047#1056#1048' 1-3 '#1082#1072#1090#1077#1075#1086#1088#1080#1081
-  ClientHeight = 657
+  ClientHeight = 823
   ClientWidth = 1803
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 1803
-    Height = 657
+    Height = 804
     ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
@@ -27,7 +27,7 @@ object Form1: TForm1
       Caption = #1054#1085#1082#1086#1076#1080#1089#1087#1072#1085#1089#1077#1088#1099
       object Panel1: TPanel
         Left = 0
-        Top = 568
+        Top = 715
         Width = 1795
         Height = 61
         Align = alBottom
@@ -62,7 +62,7 @@ object Form1: TForm1
         Left = 0
         Top = 0
         Width = 1795
-        Height = 568
+        Height = 715
         Align = alClient
         AutoFitColWidths = True
         ColumnDefValues.Title.TitleButton = True
@@ -72,6 +72,7 @@ object Form1: TForm1
         IndicatorTitle.TitleButton = True
         OptionsEh = [dghFixed3D, dghResizeWholeRightPart, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghMultiSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
         STFilter.InstantApply = True
+        STFilter.Local = True
         STFilter.Visible = True
         SumList.Active = True
         SumList.VirtualRecords = True
@@ -196,26 +197,26 @@ object Form1: TForm1
       ImageIndex = 1
       object Panel2: TPanel
         Left = 0
-        Top = 560
+        Top = 701
         Width = 1795
-        Height = 69
+        Height = 75
         Align = alBottom
         TabOrder = 0
         object Button2: TButton
-          Left = 1273
+          Left = 713
           Top = 1
-          Width = 336
-          Height = 50
+          Width = 567
+          Height = 56
           Align = alClient
           Caption = #1055#1086#1083#1091#1095#1080#1090#1100' '#1076#1072#1085#1085#1099#1077
           TabOrder = 0
           OnClick = Button2Click
-          ExplicitLeft = 992
-          ExplicitWidth = 617
+          ExplicitLeft = 593
+          ExplicitWidth = 687
         end
         object ProgressBar2: TProgressBar
           Left = 1
-          Top = 51
+          Top = 57
           Width = 1793
           Height = 17
           Align = alBottom
@@ -224,53 +225,14 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 1
           Top = 1
-          Width = 1272
-          Height = 50
+          Width = 712
+          Height = 56
           Align = alLeft
           TabOrder = 2
-          object Label1: TLabel
-            Left = 688
-            Top = 10
-            Width = 79
-            Height = 23
-            Caption = #1047#1072#1087#1080#1089#1077#1081':'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -19
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label3: TLabel
-            Left = 904
-            Top = 10
-            Width = 61
-            Height = 23
-            Caption = #1042#1088#1077#1084#1103':'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -19
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label4: TLabel
-            Left = 1072
-            Top = 10
-            Width = 95
-            Height = 23
-            Caption = #1054#1087#1077#1088#1072#1094#1080#1081':'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -19
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
           object CB_IzgotYear: TComboBox
-            Left = 224
-            Top = 10
-            Width = 185
+            Left = 250
+            Top = 14
+            Width = 200
             Height = 24
             AutoDropDown = True
             Font.Charset = DEFAULT_CHARSET
@@ -294,8 +256,8 @@ object Form1: TForm1
           end
           object CB_Izgot: TComboBox
             Left = 17
-            Top = 10
-            Width = 185
+            Top = 14
+            Width = 184
             Height = 24
             AutoDropDown = True
             Font.Charset = DEFAULT_CHARSET
@@ -314,9 +276,9 @@ object Form1: TForm1
               '08622474')
           end
           object CB_Kateg: TComboBox
-            Left = 433
-            Top = 10
-            Width = 185
+            Left = 504
+            Top = 14
+            Width = 194
             Height = 24
             AutoDropDown = True
             Font.Charset = DEFAULT_CHARSET
@@ -326,6 +288,7 @@ object Form1: TForm1
             Font.Style = []
             ParentFont = False
             TabOrder = 2
+            TabStop = False
             Text = #1050#1072#1090#1077#1075#1086#1088#1080#1103' '#1080#1089#1090#1086#1095#1085#1080#1082#1072
             OnEnter = CB_KategEnter
             Items.Strings = (
@@ -335,15 +298,15 @@ object Form1: TForm1
           end
         end
         object Panel4: TPanel
-          Left = 1609
+          Left = 1280
           Top = 1
-          Width = 185
-          Height = 50
+          Width = 255
+          Height = 56
           Align = alRight
           TabOrder = 3
           object CheckBox1: TCheckBox
             Left = 16
-            Top = 16
+            Top = 18
             Width = 169
             Height = 17
             Caption = #1055#1086#1082#1072#1079#1099#1074#1072#1090#1100' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080
@@ -353,12 +316,23 @@ object Form1: TForm1
             OnClick = CheckBox1Click
           end
         end
+        object btnExportToExcel: TButton
+          Left = 1535
+          Top = 1
+          Width = 259
+          Height = 56
+          Align = alRight
+          Caption = #1069#1082#1089#1087#1086#1088#1090' '#1074' Excel'
+          Enabled = False
+          TabOrder = 4
+          OnClick = btnExportToExcelClick
+        end
       end
       object DBGridEh2: TDBGridEh
         Left = 0
         Top = 0
         Width = 1795
-        Height = 560
+        Height = 701
         Align = alClient
         ColumnDefValues.Title.TitleButton = True
         DataSource = DM.DS_ZRI
@@ -370,6 +344,7 @@ object Form1: TForm1
         OddRowColor = cl3DLight
         OptionsEh = [dghFixed3D, dghResizeWholeRightPart, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghMultiSortMarking, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
         STFilter.InstantApply = True
+        STFilter.Local = True
         STFilter.Visible = True
         SumList.Active = True
         SumList.VirtualRecords = True
@@ -970,5 +945,27 @@ object Form1: TForm1
         end
       end
     end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 804
+    Width = 1803
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 200
+      end
+      item
+        Width = 200
+      end>
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = 'xlsx'
+    Filter = 'Excel|*.xlsx'
+    Left = 896
+    Top = 416
   end
 end

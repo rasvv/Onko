@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls, DBGridEhGrouping, ToolCtrlsEh, EhLibADO,
   DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  Vcl.CheckLst, DateUtils;
+  Vcl.CheckLst, DateUtils, EhLibMTE, DBGridEhImpExp, XlsMemFilesEh,
+  DBGridEhXlsMemFileExporters;
 
 type
   TForm1 = class(TForm)
@@ -27,11 +28,11 @@ type
     CB_IzgotYear: TComboBox;
     CB_Izgot: TComboBox;
     CB_Kateg: TComboBox;
-    Label1: TLabel;
     Panel4: TPanel;
     CheckBox1: TCheckBox;
-    Label3: TLabel;
-    Label4: TLabel;
+    StatusBar1: TStatusBar;
+    btnExportToExcel: TButton;
+    SaveDialog1: TSaveDialog;
     procedure Button1Click(Sender: TObject);
     procedure DBGridEh1SortMarkingChanged(Sender: TObject);
     procedure DBGridEh1GetCellParams(Sender: TObject; Column: TColumnEh;
@@ -50,6 +51,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure CB_IzgotYearEnter(Sender: TObject);
     procedure CB_KategEnter(Sender: TObject);
+    procedure btnExportToExcelClick(Sender: TObject);
   private
   function FillCell(var Background: TColor; Col: String): TColor;
     procedure CheckColumn(ColNom: Integer; ColTitle: String; ColField: String);
@@ -70,6 +72,86 @@ implementation
 uses DataMod;
 
 
+
+//procedure ExportDBGridEhToXlsMemFile(DBGridEh: TCustomDBGridEh; XlsFile: TXlsMemFileEh;
+//  ExportOptions: TDBGridEhXlsMemFileExportOptions; ExporterClass: TDBGridEhToXlsMemFileExporterClass);
+//var
+//  Exporter: TDBGridEhToXlsMemFileExporter;
+//begin
+//  if ExporterClass <> nil
+//    then Exporter := ExporterClass.Create
+//    else Exporter := TDBGridEhToXlsMemFileExporter.Create;
+//
+//  Exporter.XlsFile := XlsFile;
+//  Exporter.Grid := DBGridEh;
+//  if ExportOptions <> nil then
+//    Exporter.ExportOptions := ExportOptions;
+//
+//  Exporter.ExportGrid;
+//
+//  Exporter.Free;
+//end;
+
+
+procedure TForm1.btnExportToExcelClick(Sender: TObject);
+//begin
+//  if SaveDialog1.Execute then
+//    SaveDBGridEhToExportFile(TDBGridEhExportAsOLEXLS, DBGridEh2,
+//      SaveDialog1.FileName, True);
+var
+  Path: String;
+  FileName: String;
+  XlsFile: TXlsMemFileEh;
+  Exporter: TDBGridEhToXlsMemFileExporter;
+  cr: IXlsFileCellsRangeEh;
+begin
+  if (Form4.ShowModal <> mrOk) then Exit;
+
+  GetDir(0, Path);
+  FileName := Path + '\DBGridEhAsXlsx.Xlsx';
+  XlsFile := TXlsMemFileEh.Create;
+
+  Exporter := TDBGridEhToXlsMemFileExporter.Create;
+
+  if Form4.cbGridCaption.Checked then
+  begin
+    XlsFile.Workbook.Worksheets[0].Cells[0, 0].Value := Form4.EditCaption.Text;
+    cr := XlsFile.Workbook.Worksheets[0].GetCellsRange(0, 0, 0, 0);
+    cr.Font.Size := 24;
+    cr.ApplyChages;
+    Exporter.FromRow := 1;
+  end else
+  begin
+    Exporter.FromRow := 0;
+  end;
+
+  Exporter.XlsFile := XlsFile;
+  Exporter.Grid := DBGridEh;
+  Exporter.ExportOptions.IsExportSelecting := False;
+
+  Exporter.ExportOptions.IsExportTitle := Form4.cbExportTitle.Checked;
+  Exporter.ExportOptions.IsExportFooter := Form4.cbExportFooter.Checked;
+  Exporter.ExportOptions.IsExportFontFormat := Form4.cbFontFormat.Checked;
+  Exporter.ExportOptions.IsExportFillColor := Form4.cbFillColors.Checked;
+  Exporter.ExportOptions.IsCreateAutoFilter := Form4.cbAutoFilter.Checked;
+  Exporter.ExportOptions.IsExportFreezeZones := Form4.cbFreezeTitleRow.Checked;
+  Exporter.ExportOptions.IsFooterSumsAsFormula := Form4.cbSumsAsFormula.Checked;
+  Exporter.ExportOptions.IsExportDisplayFormat := Form4.cbDisplayFormat.Checked;
+
+  Exporter.ExportGrid;
+
+  if Form4.cbSubcation.Checked then
+  begin
+    XlsFile.Workbook.Worksheets[0].Cells[0, Exporter.FinishRow].Value := Form4.EditSubcaption.Text;
+  end;
+
+  Exporter.Free;
+
+  XlsFile.SaveToFile(FileName);
+  XlsFile.Free;
+
+  ShellExecute(Handle, nil, PChar(FileName), nil, nil, SW_SHOWNORMAL);
+end;
 
 procedure TForm1.Button1Click(Sender: TObject);
   var
@@ -194,7 +276,7 @@ begin
 
   DM.ADOZRIQIzgot.First;
   ProgressBar2.Max := DM.ADOZRIQIzgot.RecordCount;
-  Label1.Caption := 'Записей: ' + IntToStr(DM.ADOZRIQIzgot.RecordCount);
+  StatusBar1.Panels[0].Text := 'Записей: ' + IntToStr(DM.ADOZRIQIzgot.RecordCount);
   Form1.Repaint;
   ProgressBar2.Position := 0;
   If NOT DM.MTE_ZRI.Active then DM.MTE_ZRI.open;
@@ -249,6 +331,7 @@ begin
     DM.MTE_ZRI.Post;
     DM.ADOZRIQIzgot.Next;
     ProgressBar2.Position := ProgressBar2.Position+1;
+    btnExportToExcel.Enabled := True;
     Form1.Repaint;
   End;
 
@@ -257,7 +340,7 @@ begin
 
   TimeEnd := now;
   timeLost := SecondsBetween(TimeBegin, TimeEnd);
-  Label3.Caption := 'Время: ' + IntToStr(timeLost) + ' c.';
+  StatusBar1.Panels[2].Text := 'Время: ' + IntToStr(timeLost) + ' c.';
 
 end;
 
@@ -291,7 +374,7 @@ begin
     DBGridEh2.Columns[i].Visible := Visible;
     If Visible and (MaxPos > 0) then
     Begin
-      if (I < MaxPos * 3 + 9) then
+      if (I < MaxPos * 3 + 6) then
       DBGridEh2.Columns[i].Visible := Visible;
     End;
   End;
@@ -389,7 +472,7 @@ begin
     if MaxPos < pos then
     Begin
       MaxPos := pos;
-      Label4.Caption := 'Операций: ' + IntToStr(MaxPos);
+      StatusBar1.Panels[1].Text := 'Операций: ' + IntToStr(MaxPos);
 //      Form1.Repaint;
     End;
 

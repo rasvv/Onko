@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
   Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls, DBGridEhGrouping, ToolCtrlsEh, EhLibADO,
   DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
-  Vcl.CheckLst, DateUtils;
+  Vcl.CheckLst, DateUtils, EhLibMTE;
 
 type
   TForm1 = class(TForm)
@@ -27,10 +27,10 @@ type
     CB_IzgotYear: TComboBox;
     CB_Izgot: TComboBox;
     CB_Kateg: TComboBox;
-    Label1: TLabel;
     Panel4: TPanel;
     CheckBox1: TCheckBox;
-    Label3: TLabel;
+    StatusBar1: TStatusBar;
+    btnExportToExcel: TButton;
     procedure Button1Click(Sender: TObject);
     procedure DBGridEh1SortMarkingChanged(Sender: TObject);
     procedure DBGridEh1GetCellParams(Sender: TObject; Column: TColumnEh;
@@ -159,10 +159,13 @@ procedure TForm1.Button2Click(Sender: TObject);
 var
 j, k, timeLost : integer;
 TimeBegin, TimeEnd: TTime;
+vvv : Boolean;
 
 ColEh: TColumnEh;
 begin
   TimeBegin := now;
+  MaxPos := 0;
+  vvv := DM.MTE_ZRI.IsSequenced;
   for k := 0 to DBGridEh2.Columns.Count-1 do
   DBGridEh2.Columns[k].Visible := true;
   CheckBox1.Checked := True;
@@ -190,7 +193,7 @@ begin
 
   DM.ADOZRIQIzgot.First;
   ProgressBar2.Max := DM.ADOZRIQIzgot.RecordCount;
-  Label1.Caption := 'Записей: ' + IntToStr(DM.ADOZRIQIzgot.RecordCount);
+  StatusBar1.Panels[0].Text := 'Записей: ' + IntToStr(DM.ADOZRIQIzgot.RecordCount);
   Form1.Repaint;
   ProgressBar2.Position := 0;
   If NOT DM.MTE_ZRI.Active then DM.MTE_ZRI.open;
@@ -245,14 +248,15 @@ begin
     DM.MTE_ZRI.Post;
     DM.ADOZRIQIzgot.Next;
     ProgressBar2.Position := ProgressBar2.Position+1;
-
-    for k := MaxPos*3+9 to DBGridEh2.Columns.Count-1 do
-    DBGridEh2.Columns[k].Visible := false;
+    Form1.Repaint;
   End;
+
+  for k := MaxPos*3+6 to DBGridEh2.Columns.Count-1 do
+  DBGridEh2.Columns[k].Visible := false;
 
   TimeEnd := now;
   timeLost := SecondsBetween(TimeBegin, TimeEnd);
-  Label3.Caption := 'Время: ' + IntToStr(timeLost) + ' c.';
+  StatusBar1.Panels[2].Text := 'Время: ' + IntToStr(timeLost) + ' c.';
 
 end;
 
@@ -286,7 +290,7 @@ begin
     DBGridEh2.Columns[i].Visible := Visible;
     If Visible and (MaxPos > 0) then
     Begin
-      if (I < MaxPos * 3 + 9) then
+      if (I < MaxPos * 3 + 6) then
       DBGridEh2.Columns[i].Visible := Visible;
     End;
   End;
@@ -375,14 +379,19 @@ pos, k, j: Integer;
 begin
   if DM.ADOZRIQOper.Active then
 
-
   for k := 1 to 20 do
     Begin
       if DM.MTE_ZRI.FieldByName('Oper' + IntToStr(k)).Value = null then Break;
       pos := k;
     End;
 
-    if MaxPos < pos then MaxPos := pos;
+    if MaxPos < pos then
+    Begin
+      MaxPos := pos;
+      StatusBar1.Panels[1].Text := 'Операций: ' + IntToStr(MaxPos);
+//      Form1.Repaint;
+    End;
+
 
 
 //  pos := DM.ADOZRIQOper.RecordCount;

@@ -160,10 +160,13 @@ procedure TForm1.Button2Click(Sender: TObject);
 var
 j, k, timeLost : integer;
 TimeBegin, TimeEnd: TTime;
+vvv : Boolean;
 
 ColEh: TColumnEh;
 begin
   TimeBegin := now;
+  MaxPos := 0;
+  vvv := DM.MTE_ZRI.IsSequenced;
   for k := 0 to DBGridEh2.Columns.Count-1 do
   DBGridEh2.Columns[k].Visible := true;
   CheckBox1.Checked := True;
@@ -246,10 +249,10 @@ begin
     DM.MTE_ZRI.Post;
     DM.ADOZRIQIzgot.Next;
     ProgressBar2.Position := ProgressBar2.Position+1;
-    Form2.Repaint;
+    Form1.Repaint;
   End;
 
-  for k := MaxPos*3+9 to DBGridEh2.Columns.Count-1 do
+  for k := MaxPos*3+6 to DBGridEh2.Columns.Count-1 do
   DBGridEh2.Columns[k].Visible := false;
 
   TimeEnd := now;
@@ -288,7 +291,7 @@ begin
     DBGridEh2.Columns[i].Visible := Visible;
     If Visible and (MaxPos > 0) then
     Begin
-      if (I < MaxPos * 3 + 9) then
+      if (I < MaxPos * 3 + 6) then
       DBGridEh2.Columns[i].Visible := Visible;
     End;
   End;
@@ -377,7 +380,6 @@ pos, k, j: Integer;
 begin
   if DM.ADOZRIQOper.Active then
 
-
   for k := 1 to 20 do
     Begin
       if DM.MTE_ZRI.FieldByName('Oper' + IntToStr(k)).Value = null then Break;
@@ -387,8 +389,8 @@ begin
     if MaxPos < pos then
     Begin
       MaxPos := pos;
-      Label4.Caption := IntToStr(MaxPos);
-      Form1.Repaint;
+      Label4.Caption := 'Операций: ' + IntToStr(MaxPos);
+//      Form1.Repaint;
     End;
 
 

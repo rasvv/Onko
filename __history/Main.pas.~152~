@@ -60,8 +60,6 @@ type
     procedure btnExportToExcelClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
-    procedure DBGridEh3GetCellParams(Sender: TObject; Column: TColumnEh;
-      AFont: TFont; var Background: TColor; State: TGridDrawState);
   private
   function FillCell(var Background: TColor; Col: String): TColor;
     procedure CheckColumn(ColNom: Integer; ColTitle: String; ColField: String);
@@ -351,6 +349,8 @@ begin
 
             break;
           End;
+
+
           DM.ADOQuery3.Next;
         End;
 
@@ -372,10 +372,14 @@ begin
             dp := DM.ADOQuery3opDate.Value;
             DM.ADOQuery3.Next;
           End;
+
           DM.MTE_ZRI.Post;
           Form1.Repaint;
         End;
+
+
     End;
+
     DM.ADOQuery2.Next;
     ProgressBar3.Position := ProgressBar3.Position +1;
   End;
@@ -680,49 +684,6 @@ begin
     else
     DM.MTE_ZRI.SortOrder := Column.FieldName;
   col := ACol;
-end;
-
-procedure TForm1.DBGridEh3GetCellParams(Sender: TObject; Column: TColumnEh;
-  AFont: TFont; var Background: TColor; State: TGridDrawState);
-begin
-  case Column.Index of
-      8: Begin
-        if StrToInt(DM.MTE_ZRIOrg1.Value) > 365 then Background := clRed;
-      End;
-      11: Begin
-        if StrToInt(DM.MTE_ZRIOrg2.Value) > 365 then Background := clRed;
-      End;
-      14: Begin
-        if StrToInt(DM.MTE_ZRIOrg3.Value) > 365 then Background := clRed;
-      End;
-      17: Begin
-        if StrToInt(DM.MTE_ZRIOrg4.Value) > 365 then Background := clRed;
-      End;
-      20: Begin
-        if StrToInt(DM.MTE_ZRIOrg5.Value) > 365 then Background := clRed;
-      End;
-      23: Begin
-        if StrToInt(DM.MTE_ZRIOrg6.Value) > 365 then Background := clRed;
-      End;
-      26: Begin
-        if StrToInt(DM.MTE_ZRIOrg7.Value) > 365 then Background := clRed;
-      End;
-      29: Begin
-        if StrToInt(DM.MTE_ZRIOrg8.Value) > 365 then Background := clRed;
-      End;
-      32: Begin
-        if StrToInt(DM.MTE_ZRIOrg9.Value) > 365 then Background := clRed;
-      End;
-      35: Begin
-        if StrToInt(DM.MTE_ZRIOrg10.Value) > 365 then Background := clRed;
-      End;
-      38: Begin
-        if StrToInt(DM.MTE_ZRIOrg11.Value) > 365 then Background := clRed;
-      End;
-      41: Begin
-        if StrToInt(DM.MTE_ZRIOrg12.Value) > 365 then Background := clRed;
-      End;
-  end;
 end;
 
 end.

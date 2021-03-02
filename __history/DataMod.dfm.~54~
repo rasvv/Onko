@@ -698,7 +698,6 @@ object DM: TDM
     Top = 290
   end
   object ADOZRIQIzgot: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <
@@ -792,7 +791,6 @@ object DM: TDM
     end
   end
   object ADOZRIQOper: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <
@@ -1940,8 +1938,7 @@ object DM: TDM
       '      left join FORMP as F ON f.id = r.idf'
       '      left join SprORG as s ON s.id = f.IDP'
       'where'
-      ' s.KOD_ORG = '#39'74047'#39
-      '    and IzgotDate =  :izgotDate'
+      '    IzgotDate =  :izgotDate'
       '    and Typ = :typ '
       '    and Kateg = :kategory'
       '    and Numb = :numb'

@@ -38,7 +38,6 @@ type
     Button3: TButton;
     ProgressBar3: TProgressBar;
     DBGridEh3: TDBGridEh;
-    Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure DBGridEh1SortMarkingChanged(Sender: TObject);
     procedure DBGridEh1GetCellParams(Sender: TObject; Column: TColumnEh;
@@ -59,9 +58,6 @@ type
     procedure CB_KategEnter(Sender: TObject);
     procedure btnExportToExcelClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
-    procedure DBGridEh3GetCellParams(Sender: TObject; Column: TColumnEh;
-      AFont: TFont; var Background: TColor; State: TGridDrawState);
   private
   function FillCell(var Background: TColor; Col: String): TColor;
     procedure CheckColumn(ColNom: Integer; ColTitle: String; ColField: String);
@@ -303,9 +299,8 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 var
-db, de, dp: TDate;
+db, de: TDate;
 op, j: Integer;
-inv: Boolean;
 begin
   DM.ADOQuery2.Open;
     DM.ADOQuery2.First;
@@ -328,65 +323,43 @@ begin
     db := DM.ADOQuery3OpDate.value;
     Op := DM.ADOQuery3OpCod.value;
 
-    if DM.ADOQuery3.RecordCount = 1 then
-      de := now
-    else
-    Begin
-      DM.ADOQuery3.Last;
-      de := DM.ADOQuery3OpDate.value;
-    End;
-
-
+    DM.ADOQuery3.Last;
+    de := DM.ADOQuery3OpDate.value;
 
     if daysBetween(db, de) > 365 then
     Begin
-        inv := False;
         DM.ADOQuery3.First;
+
+
+        DM.MTE_ZRI.Insert;
+        DM.MTE_ZRIType.Value := DM.ADOQuery2Typ.Value;
+        DM.MTE_ZRIPassport.Value := DM.ADOQuery2PaspN.Value;
+        DM.MTE_ZRINumber.Value := DM.ADOQuery2Numb.Value;
+        DM.MTE_ZRIKategory.Value := DM.ADOQuery2Kateg.Value;
+        DM.MTE_ZRIIzgotDate.Value := StrToDate(DM.ADOQuery2Izgot_Date.Value);
+        DM.MTE_ZRIIzgot.Value := DM.ADOQuery2IzgotOKPO.Value;
 
         for j := 0 to DM.ADOQuery3.RecordCount -1 do
         Begin
-          if DM.ADOQuery3opCod.Value = 10 then
-          Begin
-            inv := true;
-
-            break;
-          End;
-          DM.ADOQuery3.Next;
-        End;
-
-        if NOT inv then
-        Begin
-          DM.ADOQuery3.First;
-          DM.MTE_ZRI.Insert;
-          DM.MTE_ZRIType.Value := DM.ADOQuery2Typ.Value;
-          DM.MTE_ZRIPassport.Value := DM.ADOQuery2PaspN.Value;
-          DM.MTE_ZRINumber.Value := DM.ADOQuery2Numb.Value;
-          DM.MTE_ZRIKategory.Value := DM.ADOQuery2Kateg.Value;
-          DM.MTE_ZRIIzgotDate.Value := StrToDate(DM.ADOQuery2Izgot_Date.Value);
-          DM.MTE_ZRIIzgot.Value := DM.ADOQuery2IzgotOKPO.Value;
-          for j := 0 to DM.ADOQuery3.RecordCount -1 do
+          If J <=20 Then
           Begin
             DM.MTE_ZRI.FieldByName('OpDate'+IntToStr(j+1)).Value :=  DM.ADOQuery3opDate.Value;
             DM.MTE_ZRI.FieldByName('Oper'+IntToStr(j+1)).Value :=  DM.ADOQuery3opCod.Value;
-            DM.MTE_ZRI.FieldByName('Org'+IntToStr(j+1)).Value :=  IntToStr(daysBetween(dp, DM.ADOQuery3opDate.Value));
-            dp := DM.ADOQuery3opDate.Value;
-            DM.ADOQuery3.Next;
+            DM.MTE_ZRI.FieldByName('Org'+IntToStr(j+1)).Value :=  '74047';
           End;
-          DM.MTE_ZRI.Post;
-          Form1.Repaint;
+
+          DM.ADOQuery3.Next;
         End;
+
+
+        DM.MTE_ZRI.Post;
+        Form1.Repaint;
     End;
+
     DM.ADOQuery2.Next;
     ProgressBar3.Position := ProgressBar3.Position +1;
   End;
 
-end;
-
-procedure TForm1.Button4Click(Sender: TObject);
-begin
-  if SaveDialog1.Execute then
-    SaveDBGridEhToExportFile(TDBGridEhExportAsOLEXLS, DBGridEh2,
-      SaveDialog1.FileName, True);
 end;
 
 procedure TForm1.CB_IzgotEnter(Sender: TObject);
@@ -680,49 +653,6 @@ begin
     else
     DM.MTE_ZRI.SortOrder := Column.FieldName;
   col := ACol;
-end;
-
-procedure TForm1.DBGridEh3GetCellParams(Sender: TObject; Column: TColumnEh;
-  AFont: TFont; var Background: TColor; State: TGridDrawState);
-begin
-  case Column.Index of
-      8: Begin
-        if StrToInt(DM.MTE_ZRIOrg1.Value) > 365 then Background := clRed;
-      End;
-      11: Begin
-        if StrToInt(DM.MTE_ZRIOrg2.Value) > 365 then Background := clRed;
-      End;
-      14: Begin
-        if StrToInt(DM.MTE_ZRIOrg3.Value) > 365 then Background := clRed;
-      End;
-      17: Begin
-        if StrToInt(DM.MTE_ZRIOrg4.Value) > 365 then Background := clRed;
-      End;
-      20: Begin
-        if StrToInt(DM.MTE_ZRIOrg5.Value) > 365 then Background := clRed;
-      End;
-      23: Begin
-        if StrToInt(DM.MTE_ZRIOrg6.Value) > 365 then Background := clRed;
-      End;
-      26: Begin
-        if StrToInt(DM.MTE_ZRIOrg7.Value) > 365 then Background := clRed;
-      End;
-      29: Begin
-        if StrToInt(DM.MTE_ZRIOrg8.Value) > 365 then Background := clRed;
-      End;
-      32: Begin
-        if StrToInt(DM.MTE_ZRIOrg9.Value) > 365 then Background := clRed;
-      End;
-      35: Begin
-        if StrToInt(DM.MTE_ZRIOrg10.Value) > 365 then Background := clRed;
-      End;
-      38: Begin
-        if StrToInt(DM.MTE_ZRIOrg11.Value) > 365 then Background := clRed;
-      End;
-      41: Begin
-        if StrToInt(DM.MTE_ZRIOrg12.Value) > 365 then Background := clRed;
-      End;
-  end;
 end;
 
 end.

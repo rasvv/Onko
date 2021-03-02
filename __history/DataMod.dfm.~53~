@@ -698,7 +698,6 @@ object DM: TDM
     Top = 290
   end
   object ADOZRIQIzgot: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <
@@ -792,7 +791,6 @@ object DM: TDM
     end
   end
   object ADOZRIQOper: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <
@@ -1794,6 +1792,23 @@ object DM: TDM
     Left = 320
     Top = 224
   end
+  object ADODataDriverEh1: TADODataDriverEh
+    ADOConnection = ADOConnection1
+    DynaSQLParams.Options = []
+    MacroVars.Macros = <>
+    SelectCommand.Parameters = <>
+    UpdateCommand.Parameters = <>
+    InsertCommand.Parameters = <>
+    DeleteCommand.Parameters = <>
+    GetrecCommand.Parameters = <>
+    Left = 408
+    Top = 160
+  end
+  object MemTableEh1: TMemTableEh
+    Params = <>
+    Left = 408
+    Top = 224
+  end
   object ADOQuery2: TADOQuery
     Connection = ADOConnection1
     CursorType = ctStatic
@@ -1940,8 +1955,7 @@ object DM: TDM
       '      left join FORMP as F ON f.id = r.idf'
       '      left join SprORG as s ON s.id = f.IDP'
       'where'
-      ' s.KOD_ORG = '#39'74047'#39
-      '    and IzgotDate =  :izgotDate'
+      '    IzgotDate =  :izgotDate'
       '    and Typ = :typ '
       '    and Kateg = :kategory'
       '    and Numb = :numb'
@@ -2279,13 +2293,45 @@ object DM: TDM
     Filtered = True
     IndexDefs = <>
     Params = <>
+    DataDriver = ADODataDriverEh1
     StoreDefs = True
     Left = 544
     Top = 168
-  end
-  object DataSource1: TDataSource
-    DataSet = MemTableEh2
-    Left = 544
-    Top = 224
+    object StringField1: TStringField
+      FieldName = 'Type'
+    end
+    object StringField2: TStringField
+      FieldName = 'Number'
+    end
+    object StringField3: TStringField
+      FieldName = 'Passport'
+    end
+    object DateField1: TDateField
+      FieldName = 'IzgotDate'
+    end
+    object StringField4: TStringField
+      FieldName = 'Izgot'
+    end
+    object SmallintField1: TSmallintField
+      FieldName = 'Kategory'
+    end
+    object DateField2: TDateField
+      FieldName = 'OpDate1'
+    end
+    object SmallintField3: TSmallintField
+      FieldName = 'Oper1'
+    end
+    object StringField5: TStringField
+      FieldName = 'Org1'
+    end
+    object DateField3: TDateField
+      FieldName = 'OpDate2'
+    end
+    object SmallintField4: TSmallintField
+      FieldName = 'Oper2'
+    end
+    object StringField6: TStringField
+      FieldName = 'Org2'
+    end
   end
 end

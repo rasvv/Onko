@@ -125,6 +125,8 @@ type
     MTE_ZRIOpDate20: TDateField;
     MTE_ZRIOper20: TSmallintField;
     MTE_ZRIOrg20: TStringField;
+    ADODataDriverEh1: TADODataDriverEh;
+    MemTableEh1: TMemTableEh;
     ADOQuery2: TADOQuery;
     ADOQuery3: TADOQuery;
     ADOQuery2Kateg: TSmallintField;
@@ -137,10 +139,21 @@ type
     ADOQuery2IzgotOKPO: TWideStringField;
     ADOQuery2Izgot_Date: TStringField;
     MemTableEh2: TMemTableEh;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    DateField1: TDateField;
+    StringField4: TStringField;
+    SmallintField1: TSmallintField;
+    DateField2: TDateField;
+    SmallintField3: TSmallintField;
+    StringField5: TStringField;
+    DateField3: TDateField;
+    SmallintField4: TSmallintField;
+    StringField6: TStringField;
     ADOQuery3Kod_Org: TWideStringField;
     ADOQuery3opCod: TSmallintField;
     ADOQuery3opdate: TDateTimeField;
-    DataSource1: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure MTE_Add_Columns(ColumnsCount: Integer);
   private

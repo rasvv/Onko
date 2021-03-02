@@ -1940,8 +1940,7 @@ object DM: TDM
       '      left join FORMP as F ON f.id = r.idf'
       '      left join SprORG as s ON s.id = f.IDP'
       'where'
-      ' s.KOD_ORG = '#39'74047'#39
-      '    and IzgotDate =  :izgotDate'
+      '    IzgotDate =  :izgotDate'
       '    and Typ = :typ '
       '    and Kateg = :kategory'
       '    and Numb = :numb'

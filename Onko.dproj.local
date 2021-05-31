@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.609,D:\MyProg\Delphi\Unit2.pas=D:\MyProg\Delphi\DataMod.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.562,D:\MyProg\Delphi\Unit1.dfm=D:\MyProg\Delphi\Main.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.609,D:\MyProg\Delphi\Unit2.dfm=D:\MyProg\Delphi\DataMod.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.561,=D:\MyProg\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.562,D:\MyProg\Delphi\Main.dfm=D:\MyProg\Delphi\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.166,=D:\MyProg\Delphi\Onko\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.185,=D:\MyProg\Delphi\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.562,D:\MyProg\Delphi\Unit1.pas=D:\MyProg\Delphi\Main.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.450,D:\MyProg\Delphi\Project1.dproj=D:\MyProg\Delphi\Onko\Onko.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.561,=D:\MyProg\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.450,D:\MyProg\Delphi\Onko\Onko.dproj=D:\MyProg\Delphi\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.609,D:\MyProg\Delphi\DataMod.dfm=D:\MyProg\Delphi\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.609,D:\MyProg\Delphi\DataMod.pas=D:\MyProg\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.562,D:\MyProg\Delphi\Main.pas=D:\MyProg\Delphi\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
